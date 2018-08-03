@@ -1,6 +1,6 @@
 var Rx = require('rxjs/Rx');
 
-var source$ = new Rx.Observable((observer) => {
+var cold_source$ = new Rx.Observable((observer) => {
 
   setTimeout(() => {
     const value = 1
@@ -25,10 +25,16 @@ var source$ = new Rx.Observable((observer) => {
     console.log('...sending', value);
     observer.next(value);
   }, 4000);
+});
 
-}).share();
+// make the observable hot by calling share
+hot_source$ = cold_source$.share();
 
-var map$ = source$.map((item) => {
+// NOTE: cold_source$ is _still_ a cold source.
+// By calling cold_source$.share(), the cold_source$
+// variable is NOT modified.
+
+var map$ = hot_source$.map((item) => {
   console.log('map');
   return item;
 });
