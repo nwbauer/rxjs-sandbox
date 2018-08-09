@@ -1,3 +1,3 @@
 # RXJS Sandbox
 
-Where observables are ... observed.
+Where observables are... observed.
